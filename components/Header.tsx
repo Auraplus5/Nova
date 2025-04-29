@@ -1,9 +1,8 @@
-import { h } from "preact";
 import NavMenu from "../islands/NavMenu.tsx";
 
 export default function Header() {
   return (
-    <header class=" text-white w-full">
+    <header class="text-inherit w-full font-sans">
       <div className="flex items-center justify-between py-4 px-6">
         <a href="/" className="flex items-center gap-4">
           <img
@@ -17,13 +16,19 @@ export default function Header() {
           <nav class="hidden md:block">
             <ul class="flex space-x-6 text-lg">
               <li>
+                <a href="/tunnid">Tunnid</a>
+              </li>
+              <li>
                 <a href="/tunniplaan">Tunniplaan</a>
               </li>
               <li>
-                <a>Üritused</a>
+                <a href="/tule_kutsu">Tule/Kutsu külla</a>
               </li>
               <li>
-                <a>Meist</a>
+                <a href="/uritused">Üritused</a>
+              </li>
+              <li>
+                <a href="/meist">Meist</a>
               </li>
             </ul>
           </nav>

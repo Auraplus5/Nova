@@ -8,9 +8,14 @@ import * as $admin_timetable from "./routes/admin/timetable.tsx";
 import * as $api_booking from "./routes/api/booking.ts";
 import * as $api_timetable from "./routes/api/timetable.ts";
 import * as $index from "./routes/index.tsx";
+import * as $meist from "./routes/meist.tsx";
+import * as $tule_kutsu from "./routes/tule_kutsu.tsx";
+import * as $tunnid from "./routes/tunnid.tsx";
 import * as $tunniplaan from "./routes/tunniplaan.tsx";
+import * as $uritused from "./routes/uritused.tsx";
 import * as $BookingCalendar from "./islands/BookingCalendar.tsx";
 import * as $NavMenu from "./islands/NavMenu.tsx";
+import * as $ToggleDiv from "./islands/ToggleDiv.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -21,11 +26,16 @@ const manifest = {
     "./routes/api/booking.ts": $api_booking,
     "./routes/api/timetable.ts": $api_timetable,
     "./routes/index.tsx": $index,
+    "./routes/meist.tsx": $meist,
+    "./routes/tule_kutsu.tsx": $tule_kutsu,
+    "./routes/tunnid.tsx": $tunnid,
     "./routes/tunniplaan.tsx": $tunniplaan,
+    "./routes/uritused.tsx": $uritused,
   },
   islands: {
     "./islands/BookingCalendar.tsx": $BookingCalendar,
     "./islands/NavMenu.tsx": $NavMenu,
+    "./islands/ToggleDiv.tsx": $ToggleDiv,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

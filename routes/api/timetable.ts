@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import db from "../../lib/db.ts";
+import db from "../../lib/supabase.ts";
 
 export const handler: Handlers = {
     async GET(req) {
@@ -12,25 +12,21 @@ export const handler: Handlers = {
             return new Response("Missing start or end date", { status: 400 });
         }
 
-        try {
-            const result = await db.queryObject<{
-                id: number;
-                instructor: string;
-                classname: string;
-                date: string;
-                start_time: string;
-                end_time: string;
-            }>(
-                `SELECT * FROM timetable WHERE date BETWEEN $1 AND $2 ORDER BY date ASC`,
-                [start, end]
-            );
-
-            return new Response(JSON.stringify(result.rows), {
-                headers: { "Content-Type": "application/json" },
-            });
-        } catch (err) {
-            console.error("DB query failed:", err);
-            return new Response("Internal server error", { status: 500 });
+        const { data, error } = await db
+            .from("timetable")
+            .select("*")
+            .gte("date", start)
+            .lte("date", end)
+            .order("date", { ascending: true });
+        if (error) {
+            console.error("Error fetching timetable:", error);
+            return new Response("Error fetching timetable", { status: 500 });
         }
+
+        return new Response(JSON.stringify(data), {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
     },
 };
