@@ -8,7 +8,7 @@ export default function NavMenu() {
         <div class="relative">
             {/* Hamburger Icon */}
             <button
-                class="md:hidden text-gray-800"
+                class="lg:hidden text-gray-800"
                 onClick={() => setOpen(!open)}
                 aria-label="Toggle Menu"
             >
@@ -21,13 +21,24 @@ export default function NavMenu() {
             {/* Mobile Dropdown */}
             {open && (
                 <ul class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md text-gray-800 z-50">
-                    <li class="border-b p-2 hover:bg-gray-100"><a href="/booking">Broneering</a></li>
-                    <li class="border-b p-2 hover:bg-gray-100"><a href="#">Tunniplaan</a></li>
-                    <li class="border-b p-2 hover:bg-gray-100"><a href="#">Üritused</a></li>
-                    <li class="border-b p-2 hover:bg-gray-100"><a href="#">Praktikad/Koolitused</a></li>
-                    <li class="border-b p-2 hover:bg-gray-100"><a href="#">Tule/Kutsu Külla</a></li>
-                    <li class="border-b p-2 hover:bg-gray-100"><a href="#">Blogi</a></li>
-                    <li class="p-2 hover:bg-gray-100"><a href="#">Meist</a></li>
+                    <li class="border-b p-2 hover:bg-gray-100">
+                        <a href="/tunnid">Tunnid</a>
+                    </li>
+                    <li class="border-b p-2 hover:bg-gray-100">
+                        <a href="/tunniplaan">Tunniplaan</a>
+                    </li>
+                    <li class="border-b p-2 hover:bg-gray-100">
+                        <a href="/tuleKutsu">
+                            Tule/Kutsu külla</a>
+                    </li>
+                    <li class="border-b p-2 hover:bg-gray-100">
+                        <a href="/uritused">Üritused
+                        </a>
+                    </li>
+                    <li class="border-b p-2 hover:bg-gray-100">
+                        <a href="/meist">Meist
+                        </a>
+                    </li>
                 </ul>
             )}
         </div>

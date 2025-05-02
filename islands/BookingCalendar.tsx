@@ -25,7 +25,7 @@ export default function BookingCalendar() {
   const [daysToShow, setDaysToShow] = useState(7); // State to hold number of days to show in the calendar
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to hold error messages
   const [bookings, setBookings] = useState<Booking[]>([]); // State to hold booking data
-  const [typeFilter, setTypeFilter] = useState<string>("Kõik") // State to hold the selected class type filter
+  const [typeFilter, setTypeFilter] = useState<string>("Kõik"); // State to hold the selected class type filter
 
   const today = new Date();
 
@@ -43,7 +43,7 @@ export default function BookingCalendar() {
   );
 
   const filteredClasses = classes.filter((c) => {
-    if(typeFilter === "Kõik") return true;
+    if (typeFilter === "Kõik") return true;
     return c.type === typeFilter;
   });
 
@@ -113,6 +113,25 @@ export default function BookingCalendar() {
   // Get the visible dates based on the number of days to show
   const visibleDates = weekDates.slice(0, daysToShow);
 
+  function isClassDisabled(classItem: ClassDay, isFull: boolean) {
+    if (isFull) return true;
+    const classDate = new Date(classItem.date);
+    const todayNormalized = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const classDateNormalized = new Date(classDate.getFullYear(), classDate.getMonth(), classDate.getDate());
+
+    if (classDateNormalized.getTime() < todayNormalized.getTime()) return true;
+
+    if (
+        classDateNormalized.getTime() === todayNormalized.getTime() &&
+        today.getHours() >= parseInt(classItem.start_time.slice(0, 2))
+    ) {
+      return true;
+    }
+    return false;
+
+
+  }
+
   // Get unique time slots from the classes data based on the visible dates
   const timeSlots = Array.from(
     new Set(
@@ -127,83 +146,87 @@ export default function BookingCalendar() {
   return (
     <div class="max-w-6xl mx-auto mb-20">
 
+
       {/* ----------------Header for timetable---------------- */}
       <div className="flex flex-col lg:flex-row justify-between items-center mb-4">
         <div className="flex items-center py-4 justify-center flex-1">
-        <button
-          type="button"
-          class="px-2 py-1 "
-          onClick={() => {
-            const prev = new Date(referenceMonday);
-            prev.setDate(prev.getDate() - daysToShow);
-            setReferenceMonday(prev);
-          }}
-        >
-          <svg
-            class="w-[24px] h-[24px] text-gray-800 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
+          <button
+            type="button"
+            class="px-2 py-1 "
+            onClick={() => {
+              const prev = new Date(referenceMonday);
+              prev.setDate(prev.getDate() - daysToShow);
+              setReferenceMonday(prev);
+            }}
           >
-            <path
-              stroke="black"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m15 19-7-7 7-7"
-            />
-          </svg>
-        </button>
-        <h2 class="text-xl font-bold text-center px-4">
-          {formatDate(weekDates[0])} – {formatDate(weekDates[daysToShow - 1])}
-        </h2>
-        <button
-          type="button"
-          class="px-2 py-1"
-          onClick={() => {
-            const next = new Date(referenceMonday);
-            next.setDate(next.getDate() + daysToShow);
-            setReferenceMonday(next);
-          }}
-        >
-          <svg
-            className="w-[24px] h-[24px] text-gray-800 dark:text-white"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
+            <svg
+              class="w-[24px] h-[24px] text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="black"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m15 19-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <h2 class="text-xl font-bold text-center px-4">
+            {formatDate(weekDates[0])} – {formatDate(weekDates[daysToShow - 1])}
+          </h2>
+          <button
+            type="button"
+            class="px-2 py-1"
+            onClick={() => {
+              const next = new Date(referenceMonday);
+              next.setDate(next.getDate() + daysToShow);
+              setReferenceMonday(next);
+            }}
           >
-            <path
-              stroke="black"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m9 5 7 7-7 7"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-[24px] h-[24px] text-gray-800 dark:text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="black"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m9 5 7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
-          <form method="GET" className="">
-            <select
-              name="type"
-              value={typeFilter}
-                onChange={(e) => {
-                    setTypeFilter(e.currentTarget.value);
-                }}
-              >
-                <option value="Kõik">Kõik</option>
-                <option value="Tund">Tunnid</option>
-                <option value="Üritus">Üritused</option>
-            </select>
-          </form>
 
+        {/* ----------------Timetable filter---------------- */}
+        <form method="GET" className="">
+          <select
+            name="type"
+            value={typeFilter}
+            onChange={(e) => {
+              setTypeFilter(e.currentTarget.value);
+            }}
+          >
+            <option value="Kõik">Kõik</option>
+            <option value="Tund">Tunnid</option>
+            <option value="Üritus">Üritused</option>
+          </select>
+        </form>
       </div>
 
+
+      {/* ----------------Header for timetable to show the current timespan---------------- */}
       <div class="w-full bg-white rounded-2xl">
         <table class="w-full border-separate border-spacing-0 table-fixed text-sm rounded-2xl border border-gray-300 overflow-hidden">
           <thead>
@@ -231,6 +254,8 @@ export default function BookingCalendar() {
               })}
             </tr>
           </thead>
+
+            {/* ----------------Populate the timetable---------------- */}
           <tbody>
             {timeSlots.map((slot, i) => (
               <tr key={i}>
@@ -253,39 +278,33 @@ export default function BookingCalendar() {
                             <br />
                             <strong>{matchedClass.classname}</strong>
                             <br />
-                              {matchedClass.price} {"€"}
+                            {matchedClass.price} {"€"}
                           </div>
+
+                          {/* ----------------Logic for button to disable if fully booked or past date---------------- */}
                           {(() => {
                             const currentBookings = bookings.filter((b) =>
                               b.timetable_id === matchedClass.id
                             ).length;
-                            const isFull = currentBookings >= matchedClass.max_bookings;
+                            const isFull =
+                              currentBookings >= matchedClass.max_bookings;
+                            const disabled = isClassDisabled(matchedClass, isFull);
+
                             return (
                               <div class="text-xs mt-1">
-                                  {currentBookings}/{matchedClass.max_bookings} broneeringut
-                                  {isFull && <span class="text-red-600 ml-1">(Täis)</span>}
+                                {currentBookings}/{matchedClass.max_bookings}
+                                {" "}
+                                broneeringut
+                                {isFull && (<span class="text-red-600 ml-1">(Täis)</span>)}
                                 <br />
                                 <button
                                   type="button"
                                   onClick={() =>
                                     setSelectedClass(matchedClass)}
-                                  disabled={new Date().getDate() >
-                                      new Date(matchedClass.date).getDate() ||
-                                    (new Date().getHours() >=
-                                        parseInt(
-                                          matchedClass.start_time.slice(0, 2),
-                                        ) &&
-                                      new Date().getDate() ===
-                                        new Date(matchedClass.date).getDate()) || isFull}
+                                  disabled={disabled}
+
                                   className={`mt-1 text-xs text-gray-900 px-5 py-2 rounded-3xl border border-gray-900 ${
-                                    new Date().getDate() >
-                                        new Date(matchedClass.date).getDate() ||
-                                      (new Date().getHours() >=
-                                          parseInt(
-                                            matchedClass.start_time.slice(0, 2),
-                                          ) &&
-                                        new Date().getDate() ===
-                                          new Date(matchedClass.date).getDate()) || isFull
+                                    disabled
                                       ? "cursor-not-allowed"
                                       : " delay-50 duration-300 ease-in hover:scale-105"
                                   }`}
@@ -306,6 +325,7 @@ export default function BookingCalendar() {
         </table>
       </div>
 
+        {/* ----------------Modal for booking form---------------- */}
       {selectedClass && (
         <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div class="bg-[#FFFFF0] p-6 rounded shadow-md max-w-md w-full relative">

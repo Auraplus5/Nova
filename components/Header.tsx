@@ -13,22 +13,25 @@ export default function Header() {
           />
         </a>
         <div class="flex items-center gap-6">
-          <nav class="hidden md:block">
+          <nav class="hidden lg:block">
             <ul class="flex space-x-6 text-lg">
               <li>
-                <a href="/tunnid">Tunnid</a>
+                <a href="/" className="hover:text-[#af6b30]">Avaleht</a>
               </li>
               <li>
-                <a href="/tunniplaan">Tunniplaan</a>
+                <a href="/tunnid" className="hover:text-[#af6b30]">Tunnid</a>
               </li>
               <li>
-                <a href="/tule_kutsu">Tule/Kutsu külla</a>
+                <a href="/tunniplaan" className="hover:text-[#af6b30]">Tunniplaan</a>
               </li>
               <li>
-                <a href="/uritused">Üritused</a>
+                <a href="/tuleKutsu" className="hover:text-[#af6b30]">Tule/Kutsu külla</a>
               </li>
               <li>
-                <a href="/meist">Meist</a>
+                <a href="/uritused" className="hover:text-[#af6b30]">Üritused</a>
+              </li>
+              <li>
+                <a href="/meist" className="hover:text-[#af6b30]">Meist</a>
               </li>
             </ul>
           </nav>

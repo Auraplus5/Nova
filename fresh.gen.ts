@@ -9,7 +9,7 @@ import * as $api_booking from "./routes/api/booking.ts";
 import * as $api_timetable from "./routes/api/timetable.ts";
 import * as $index from "./routes/index.tsx";
 import * as $meist from "./routes/meist.tsx";
-import * as $tule_kutsu from "./routes/tule_kutsu.tsx";
+import * as $tuleKutsu from "./routes/tuleKutsu.tsx";
 import * as $tunnid from "./routes/tunnid.tsx";
 import * as $tunniplaan from "./routes/tunniplaan.tsx";
 import * as $uritused from "./routes/uritused.tsx";
@@ -27,7 +27,7 @@ const manifest = {
     "./routes/api/timetable.ts": $api_timetable,
     "./routes/index.tsx": $index,
     "./routes/meist.tsx": $meist,
-    "./routes/tule_kutsu.tsx": $tule_kutsu,
+    "./routes/tuleKutsu.tsx": $tuleKutsu,
     "./routes/tunnid.tsx": $tunnid,
     "./routes/tunniplaan.tsx": $tunniplaan,
     "./routes/uritused.tsx": $uritused,

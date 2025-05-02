@@ -1,8 +1,21 @@
 import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
+import { Head } from "$fresh/src/runtime/head.ts";
 
 export default function Meist() {
   return (
+      <>
+        <Head>
+            <title>Meist - Nova Tervise Stuudio</title>
+            <meta name="description" content="Tutvu Nova Tervise Stuudio tiimiga ja meie tegemistega. Meist leiad pühendunud juhendajad ja inspireeriva keskkonna."/>
+            <meta name="keywords" content="joogastuudio, tervise stuudio, Nova Tervise Stuudio, Rakvere"/>
+            <meta name="author" content="Nova Tervise Stuudio" />
+            <meta property="og:title" content="Nova Tervise Stuudio" />
+            <meta property="og:description" content="Tutvu Nova Tervise Stuudio tiimiga ja meie tegemistega. Meist leiad pühendunud juhendajad ja inspireeriva keskkonna." />
+            <meta property="og:type" content="website" />
+            <link rel="icon" href="/Nova_Logo.png" />
+        </Head>
+        <body>
     <div className="min-h-screen bg-[#f7f6ed]">
       <div className="text-black">
         <Header />
@@ -14,9 +27,9 @@ export default function Meist() {
       </div>
       <div className="flex lg:flex-row flex-col lg:items-start items-center justify-center gap-16 p-10 max-w-7xl mx-auto">
         <img
-          src="/Elona.jpg"
+          src="/Elona.webp"
           alt="Elona"
-          className="object-cover w-[500px] h-[500px] rounded-full"
+          className="object-cover w-[500px] h-[500px] rounded-lg"
         />
         <div className="max-w-2xl">
           <h2 className="text-2xl font-bold mb-4 text-center lg:text-left">
@@ -71,5 +84,7 @@ export default function Meist() {
       </div>
       <Footer />
     </div>
+        </body>
+      </>
   );
 }
