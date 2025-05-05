@@ -4,6 +4,7 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 export const handler: Handlers = {
     async POST(req) {
         const { access_token } = await req.json();
+        console.log("Access token:", access_token);
 
         if (!access_token) {
             return new Response("Missing access token", { status: 400 });

@@ -19,6 +19,8 @@ export default function UserLogin( props: {
             password,
         });
 
+        console.log("Session:", session);
+
         if (session) {
             await fetch("/api/set-token", {
                 method: "POST",
@@ -34,7 +36,7 @@ export default function UserLogin( props: {
             return;
         } else {
             setMessage("Sisselogimine õnnestus!");
-            globalThis.location.href = "/";
+            //globalThis.location.href = "/";
         }
     };
 
