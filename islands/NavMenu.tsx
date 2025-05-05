@@ -1,14 +1,14 @@
-import { h } from "preact";
 import { useState } from "preact/hooks";
 
-export default function NavMenu() {
+export default function NavMenu({role, user}: {role?: string; user?: {email: string, id: string}}) {
     const [open, setOpen] = useState(false);
 
     return (
         <div class="relative">
             {/* Hamburger Icon */}
             <button
-                class="lg:hidden text-gray-800"
+                type="button"
+                class="xl:hidden text-gray-800 mt-2"
                 onClick={() => setOpen(!open)}
                 aria-label="Toggle Menu"
             >
@@ -39,6 +39,16 @@ export default function NavMenu() {
                         <a href="/meist">Meist
                         </a>
                     </li>
+                    {role === "admin" && (
+                        <li class="border-b p-2 hover:bg-gray-100">
+                            <a href="/admin/timetable">Admin</a>
+                        </li>
+                    )}
+                    {user && (
+                        <li class="border-b p-2 hover:bg-gray-100">
+                            <a href={`/user/${user.id}`}>Minu Broneeringud</a>
+                        </li>
+                    )}
                 </ul>
             )}
         </div>

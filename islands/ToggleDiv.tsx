@@ -21,7 +21,7 @@ export default function ToggleDiv({ title, imageSrc, imageAlt, imageWidth, image
                 <h1 className="lg:text-4xl md:text-2xl text-xl font-[350] tracking-wider text-gray-800">
                     {title}
                 </h1>
-                <button onClick={() => setIsOpen(!isOpen)}>
+                <button type="button" onClick={() => setIsOpen(!isOpen)}>
                     {isOpen ? (
 
                         <svg className="w-7 h-7 text-gray-800" aria-hidden="true"

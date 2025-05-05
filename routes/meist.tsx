@@ -1,8 +1,18 @@
 import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
 import { Head } from "$fresh/src/runtime/head.ts";
+import { getSessionUser} from "../lib/auth.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 
-export default function Meist() {
+export const handler: Handlers = {
+    async GET(req, ctx) {
+        const { user, role, first_name } = await getSessionUser(req);
+        return ctx.render({ user, role, first_name });
+    },
+};
+
+
+export default function Meist({data}: PageProps<{ user?: any, role?: string; first_name?: string }>) {
   return (
       <>
         <Head>
@@ -15,11 +25,8 @@ export default function Meist() {
             <meta property="og:type" content="website" />
             <link rel="icon" href="/Nova_Logo.png" />
         </Head>
-        <body>
-    <div className="min-h-screen bg-[#f7f6ed]">
-      <div className="text-black">
-        <Header />
-      </div>
+        <div className="min-h-screen bg-[#f7f6ed]">
+        <Header user={data.user} role={data.role} first_name={data.first_name}/>
       <div className="py-20 px-10">
         <h1 className="lg:text-6xl md:text-4xl text-2xl font-[350] tracking-wider text-left border-b border-gray-600 text-gray-800">
           MEIST
@@ -82,9 +89,8 @@ export default function Meist() {
           </p>
         </div>
       </div>
-      <Footer />
-    </div>
-        </body>
+            <Footer/>
+        </div>
       </>
   );
 }

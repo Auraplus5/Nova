@@ -2,8 +2,17 @@ import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
 import ToggleDiv from "../islands/ToggleDiv.tsx";
 import { Head } from "$fresh/src/runtime/head.ts";
+import { getSessionUser} from "../lib/auth.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 
-export default function TuleKutsu(){
+export const handler: Handlers = {
+    async GET(req, ctx) {
+        const { user, role, first_name } = await getSessionUser(req);
+        return ctx.render({ user, role, first_name });
+    },
+};
+
+export default function TuleKutsu({data}: PageProps<{ user?: any; role?: string; first_name?: string }>) {
     return (
         <>
             <Head>
@@ -17,14 +26,13 @@ export default function TuleKutsu(){
 
             </Head>
 
-            <div class="min-h-screen bg-[#f7f6ed]">
-                <Header/>
-
+            <div className="bg-[#f7f6ed] min-h-screen">
+            <Header user={data.user} role={data.role} first_name={data.first_name}/>
                 <div className="pt-20">
 
 
                     {/*-------------Teetseremoonia intro section-------------*/}
-                    <h1 className="text-4xl font-bold text-center border-b border-gray-600">Teetseremoonia sünnipäevaks
+                    <h1 className="xl:text-4xl text-2xl font-bold text-center border-b border-gray-600">Teetseremoonia sünnipäevaks
                         ja erilisteks hetkedeks</h1>
                     <div className="flex flex-col items-center justify-center pb-20">
                         <img
@@ -51,13 +59,13 @@ export default function TuleKutsu(){
 
                     {/*-------------Teetseremoonia about section-------------*/}
                     <div
-                        className="flex xl:flex-row flex-col justify-between gap-6 items-center bg-[#F2E2CE] xl:px-40 px-10 py-20">
+                        className="flex xl:flex-row flex-col justify-between items-center bg-[#F2E2CE] xl:px-40 xl:py-20 py-10">
                         <img
                             src="/TuleKutsu/tee1.webp"
                             alt="Teetseremoonia"
-                            className="object-cover rounded-xl lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] mb-10 xl:mb-0"
+                            className="object-cover xl:rounded-xl lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] mb-10 xl:mb-0"
                         />
-                        <div className="flex flex-col max-w-3xl">
+                        <div className="flex flex-col max-w-3xl px-10">
                             <h2 className="text-2xl font-bold mb-6 text-center">Mida Me Pakume?</h2>
                             <p className="text-md mb-6 leading-relaxed">
                                 Nova tervisestuudios saad nautida tee tseremooniat,
@@ -125,7 +133,7 @@ export default function TuleKutsu(){
                     </div>
 
                     {/*-------------Laste Glow intro-------------*/}
-                    <h1 className="text-4xl font-bold text-center border-b border-gray-600 pt-20">Laste glow sünnipäev
+                    <h1 className="xl:text-4xl text-2xl font-bold text-center border-b border-gray-600 pt-20">Laste glow sünnipäev
                         Nova stuudios</h1>
                     <div className="flex flex-col items-center justify-center pb-20">
                         <img
@@ -184,7 +192,7 @@ export default function TuleKutsu(){
                     </div>
 
                     {/*-------------Meeskonna intro-------------*/}
-                    <h1 className="text-4xl font-bold text-center border-b border-gray-600 pt-20">
+                    <h1 className="xl:text-4xl text-2xl font-bold text-center border-b border-gray-600 pt-20">
                         Heaolu programmid meeskonnale</h1>
                     <div className="flex flex-col items-center justify-center pb-20">
                         <img
@@ -198,7 +206,7 @@ export default function TuleKutsu(){
                         </p>
 
                         <a
-                            href="mailto:example@email.com"
+                            href="mailto:nova.atstuudio@gmail.com"
                             className="bg-[#f7f6ed] text-gray-800 font-bold py-2 px-4 rounded-full border border-gray-800 hover:bg-gray-800 hover:text-white transition duration-300 ease-in-out mt-10"
                         >
                             Küsi personaalset pakkumist
@@ -353,8 +361,8 @@ export default function TuleKutsu(){
                     </div>
 
                 </div>
+                <Footer/>
             </div>
-            <Footer/>
         </>
     );
 }

@@ -268,8 +268,7 @@ export default function BookingCalendar() {
                   return (
                     <td
                       key={j}
-                      className="border border-gray-300 p-2 text-center align-top bg-[#FFFFF0]"
-                    >
+                      className="border border-gray-300 p-2 text-center align-top bg-[#FFFFF0]">
                       {matchedClass && (
                         <>
                           <div>
@@ -283,11 +282,8 @@ export default function BookingCalendar() {
 
                           {/* ----------------Logic for button to disable if fully booked or past date---------------- */}
                           {(() => {
-                            const currentBookings = bookings.filter((b) =>
-                              b.timetable_id === matchedClass.id
-                            ).length;
-                            const isFull =
-                              currentBookings >= matchedClass.max_bookings;
+                            const currentBookings = bookings.filter((b) => b.timetable_id === matchedClass.id).length;
+                            const isFull = currentBookings >= matchedClass.max_bookings;
                             const disabled = isClassDisabled(matchedClass, isFull);
 
                             return (
@@ -297,20 +293,16 @@ export default function BookingCalendar() {
                                 broneeringut
                                 {isFull && (<span class="text-red-600 ml-1">(Täis)</span>)}
                                 <br />
+                                {!disabled && (
                                 <button
                                   type="button"
                                   onClick={() =>
                                     setSelectedClass(matchedClass)}
-                                  disabled={disabled}
-
-                                  className={`mt-1 text-xs text-gray-900 px-5 py-2 rounded-3xl border border-gray-900 ${
-                                    disabled
-                                      ? "cursor-not-allowed"
-                                      : " delay-50 duration-300 ease-in hover:scale-105"
-                                  }`}
+                                  className="mt-1 text-xs text-gray-900 px-5 py-2 rounded-3xl border border-gray-900 delay-50 duration-300 ease-in hover:scale-105"
                                 >
                                   Registreeri
                                 </button>
+                                )}
                               </div>
                             );
                           })()}

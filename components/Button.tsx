@@ -1,5 +1,6 @@
-import { h } from "preact";
-
+/**
+ * Button component
+ */
 type Props = {
   children: string;
   href?: string;

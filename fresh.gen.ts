@@ -6,16 +6,27 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $admin_timetable from "./routes/admin/timetable.tsx";
 import * as $api_booking from "./routes/api/booking.ts";
+import * as $api_contact from "./routes/api/contact.ts";
+import * as $api_logout from "./routes/api/logout.ts";
+import * as $api_set_token from "./routes/api/set-token.ts";
 import * as $api_timetable from "./routes/api/timetable.ts";
 import * as $index from "./routes/index.tsx";
+import * as $login from "./routes/login.tsx";
 import * as $meist from "./routes/meist.tsx";
+import * as $registreeri from "./routes/registreeri.tsx";
 import * as $tuleKutsu from "./routes/tuleKutsu.tsx";
 import * as $tunnid from "./routes/tunnid.tsx";
 import * as $tunniplaan from "./routes/tunniplaan.tsx";
 import * as $uritused from "./routes/uritused.tsx";
+import * as $user_id_ from "./routes/user/[id].tsx";
+import * as $BookingActions from "./islands/BookingActions.tsx";
 import * as $BookingCalendar from "./islands/BookingCalendar.tsx";
+import * as $FormCheck from "./islands/FormCheck.tsx";
 import * as $NavMenu from "./islands/NavMenu.tsx";
+import * as $TimetableActions from "./islands/TimetableActions.tsx";
 import * as $ToggleDiv from "./islands/ToggleDiv.tsx";
+import * as $UserLogin from "./islands/UserLogin.tsx";
+import * as $UserRegistration from "./islands/UserRegistration.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -24,18 +35,29 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/admin/timetable.tsx": $admin_timetable,
     "./routes/api/booking.ts": $api_booking,
+    "./routes/api/contact.ts": $api_contact,
+    "./routes/api/logout.ts": $api_logout,
+    "./routes/api/set-token.ts": $api_set_token,
     "./routes/api/timetable.ts": $api_timetable,
     "./routes/index.tsx": $index,
+    "./routes/login.tsx": $login,
     "./routes/meist.tsx": $meist,
+    "./routes/registreeri.tsx": $registreeri,
     "./routes/tuleKutsu.tsx": $tuleKutsu,
     "./routes/tunnid.tsx": $tunnid,
     "./routes/tunniplaan.tsx": $tunniplaan,
     "./routes/uritused.tsx": $uritused,
+    "./routes/user/[id].tsx": $user_id_,
   },
   islands: {
+    "./islands/BookingActions.tsx": $BookingActions,
     "./islands/BookingCalendar.tsx": $BookingCalendar,
+    "./islands/FormCheck.tsx": $FormCheck,
     "./islands/NavMenu.tsx": $NavMenu,
+    "./islands/TimetableActions.tsx": $TimetableActions,
     "./islands/ToggleDiv.tsx": $ToggleDiv,
+    "./islands/UserLogin.tsx": $UserLogin,
+    "./islands/UserRegistration.tsx": $UserRegistration,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

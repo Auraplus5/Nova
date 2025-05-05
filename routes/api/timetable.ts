@@ -2,6 +2,7 @@ import { Handlers } from "$fresh/server.ts";
 import db from "../../lib/supabase.ts";
 
 export const handler: Handlers = {
+
     async GET(req) {
         const url = new URL(req.url);
         const start = url.searchParams.get("start");

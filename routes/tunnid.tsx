@@ -3,8 +3,17 @@ import Footer from "../components/Footer.tsx";
 import Button from "../components/Button.tsx";
 import ToggleDiv from "../islands/ToggleDiv.tsx";
 import { Head } from "$fresh/src/runtime/head.ts";
+import { getSessionUser} from "../lib/auth.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 
-export default function TunnidPage() {
+export const handler: Handlers = {
+  async GET(req, ctx) {
+    const { user, role, first_name } = await getSessionUser(req);
+    return ctx.render({ user, role, first_name });
+  },
+};
+
+export default function TunnidPage({data}: PageProps<{ user?: any; role?: string; first_name?: string }>) {
 
   return (
       <>
@@ -19,21 +28,21 @@ export default function TunnidPage() {
             <link rel="icon" href="/Nova_Logo.png" />
         </Head>
 
-    <div className="min-h-screen bg-[#f7f6ed]">
-      <div className="text-black">
-        <Header />
-      </div>
-      <div class="py-20 px-10">
+      <div className="min-h-screen bg-[#f7f6ed]">
+        <Header user={data.user} role={data.role} first_name={data.first_name}/>
+      <div class="py-20 px-5 lg:px-10">
         <h1 class="lg:text-6xl md:text-4xl text-2xl font-[350] tracking-wider text-left border-b border-gray-600 text-gray-800">
           TUNNID
         </h1>
-        <div className="justify-center items-center flex pt-10">
+      </div>
+        <div className="justify-center items-center flex pt-10 lg:px-10">
           <img
               src="/Tunnid/tunnid.webp"
               alt="jooga"
-              className="w-[1200px] h-[550px] object-cover object-bottom rounded-xl"
+              className="w-[1200px] h-[550px] object-cover object-bottom lg:rounded-xl"
           />
         </div>
+      <div class="py-10 px-5 lg:px-20">
         <div className="justify-center items-center text-center flex flex-col m-16 wrap-break-word max-w-xl mx-auto border rounded-lg p-6 border-gray-600 shadow-lg">
           <p className="text-lg italic">
             Nii füüsiline kui ka vaimne heaolu on tähtis. Igal inimesel on oma
@@ -45,12 +54,12 @@ export default function TunnidPage() {
           </p>
         </div>
 
-          <div className="py-5 px-10">
+          <div className="py-5">
             <ToggleDiv title="PÄIKESETERVITUS"
                        imageSrc="/Tunnid/päikesetervitus.webp"
                        imageAlt="päikesetervitus"
                        classnameForImg="object-cover object-[75%_100%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl">
-              <h2 className="font-bold text-xl text-center">Rahulik algus päevale</h2>
+              <h2 className="font-bold text-xl text-center pt-5">Rahulik algus päevale</h2>
               <p className="text-lg py-5">Hommikujooga tundi alustame positiivse päeva häälestamisega ja hingamis-harjutustega (pranayama).
                 Hommikujooga tunnis teeme  päikesetervituse seeria harjutusi, et äratada nii oma keha kui ka meeled ja alustada päeva rõõmsa meeleoluga.
                 Teeme harjutusi, mis tugevdavad ja täidavad keha energiaga ja elujõuga.
@@ -64,7 +73,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[60%_90%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-              <h2 className="font-bold text-xl text-center">Rahusta meel, ärata keha</h2>
+              <h2 className="font-bold text-xl text-center pt-5">Rahusta meel, ärata keha</h2>
               <p className="text-lg py-5">Hommiku hingamisharjutused aitavad parandada keskendumist ja meditatsioon omakorda süvendada lõõgastust.
                 Tunnis kasutame erinevaid hingamistehnikaid, mis aitavad teadlikult muuta hingamismustrit,
                 pöörates samal ajal tähelepanu oma kehas tekkivatele aistingutele.
@@ -80,7 +89,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[50%_85%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-              <h2 className="font-bold text-xl text-center">Jooga, mis tasakaalustab keha ja meelt</h2>
+              <h2 className="font-bold text-xl text-center pt-5">Jooga, mis tasakaalustab keha ja meelt</h2>
               <p className="text-lg py-5">Klassikaline joogatund koosneb hingamisharjutustest (pranayama),
                 jooga asenditest ja lõdvestusest.
                 Tunni alguses soojendame keha liikudes sujuvalt edasi dünaamilistele harjutustele
@@ -98,7 +107,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[75%_100%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-              <h2 className="font-bold text-xl text-center">Teraapiline jooga personaalsel lähenemisel</h2>
+              <h2 className="font-bold text-xl text-center pt-5">Teraapiline jooga personaalsel lähenemisel</h2>
               <p className="text-lg py-5">Joogateraapia seansi rühmad on kuni neli inimest,
                 kuna nende seansside eesmärk on keskenduda konkreetsete haigusseisunditega inimestele,
                 aidates neil ületada oma tervise probleemid.
@@ -118,7 +127,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[70%_100%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Hõlju ja tunne end vabalt</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Hõlju ja tunne end vabalt</h2>
               <p className="text-lg py-5">Õhujoogas kasutame asendite sooritamiseks siidist linasid, mis aitavad võtta sügavamaid joogaasendeid.
                 Õhujooga on ideaalne vaheldus joogale matil. Õhujoogaga on võimalik parandada lihaste toonust,
                 arendada tasakaalu ja suurendada paindlikkust. Olles lina sees õhus, on iga lihas kehas pidevalt töös.
@@ -134,7 +143,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[60%_100%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Õhujoogateraapia – kergendus kehale, tugi tervisele</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Õhujoogateraapia – kergendus kehale, tugi tervisele</h2>
               <p className="text-lg py-5">Õhujoogateraapia on suunatud keha tervise parandamisele ning spetsiifiliste
                 tervise probleemide ennetamisele ja lahendamisele. Tund sobib inimestele, kellel on song,
                 skolioos või seljavalud ja lisaks ka algajatele, sest teraapilised harjutused linades on palju
@@ -149,7 +158,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[60%_90%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Rahulik paus pingelises päevas</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Rahulik paus pingelises päevas</h2>
               <p className="text-lg py-5">Yin jooga on rahulik ja meditatiivne joogastiil, mis keskendub keha sügavamatele
                 kudedele – kõõlustele, liigestele ja sidekoele. See praktika sobib kõigile, olenemata joogakogemusest ning
                 pakub suurepärast vastukaalu aktiivsematele joogastiilidele ja igapäevaelu tempokusele.
@@ -166,7 +175,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[50%_80%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Dünaamiline ja energiline joogastiil</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Dünaamiline ja energiline joogastiil</h2>
               <p className="text-lg py-5">Ashtanga Vinyasa on dünaamiline jooga, kus iga tunni ülesehitus on samasugune
                 ning mis aitab läbi liikumise jõuda meditatiivse seisundini. Tunnis on pandud suurt rõhku hingamisele
                 ning hingamise ja liikumise sünkroniseerimisele, mis aitab vabastada keha toksiinidest.
@@ -179,7 +188,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[50%_80%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-              <h2 className="font-bold text-xl text-center">Pilates igale kehale ja tasemele</h2>
+              <h2 className="font-bold text-xl text-center pt-5">Pilates igale kehale ja tasemele</h2>
               <p className="text-lg py-5">Pilates on distsipliin, mis keskendub kehale kui tervikule ja
                 mille eesmärk on parandada mitmeid olulisi nii füüsilisi kui füsioloogilisi aspekte.
                 Pilatese praktika aitab suurendada selgroo liikuvust, mis on oluline osa üldisest kehahoiakust
@@ -198,7 +207,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[60%_90%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Naeru, usalduse ja paindlikkuse hetk</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Naeru, usalduse ja paindlikkuse hetk</h2>
               <p className="text-lg py-5">Paarisjooga annab võimaluse avastada iseennast teise inimese kaudu.
                 Samas õpetab kuulama partnerit ja otsima tasakaalu pannes end proovile nii füüsilisel kui
                 vaimsel tasandil. Paarisjooga harjutused toovad sind välja mugavustsoonist ja õpetavad nii
@@ -207,13 +216,13 @@ export default function TunnidPage() {
                 oma lähedastega ja samas veeta aega lõbusalt. Paarisjooga tunnis mängime,
                 teeme joogaasendeid, hingame ja lõdvestume.</p>
             </ToggleDiv>
-            <ToggleDiv title="LASTEÕHUJOOGA/LASTEJOOGA"
+            <ToggleDiv title="LASTEÕHUJOOGA JA LASTEJOOGA"
                        imageSrc="/Tunnid/lastejooga.webp"
                        imageAlt="Lastejooga"
                        classnameForImg="object-cover object-[75%_100%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Mänguline ja lõbus liikumine</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Mänguline ja lõbus liikumine</h2>
               <p className="text-lg py-5">Lasteõhujooga on suurepärane treening laste vestibulaaraparaadile.
                 Samuti tõhus võimalus lapse lihaste arendamiseks ja ühtlase kauni kehahoiaku omandamiseks.
                 Lisaks füüsise arendamisele toetab õhujooga lapse emotsionaalset arengut õppides lendama ja
@@ -230,7 +239,7 @@ export default function TunnidPage() {
                        classnameForImg="object-cover object-[65%_85%] lg:w-[600px] lg:h-[700px] w-[400px] h-[500px] rounded-3xl"
 
             >
-                <h2 className="font-bold text-xl text-center">Jooga, mis mahub tööpäeva</h2>
+                <h2 className="font-bold text-xl text-center pt-5">Jooga, mis mahub tööpäeva</h2>
               <p className="text-lg py-5">Pikaajaline ilma pausita laua ja arvuti taga istumine toob pingeid
                 meie kaelale, õlgadele ja seljale. Samuti paljudes kontorites inimeste töö on stressirohke.
                 Stressile ja pingetele järgnevad erinevaid tervise probleemid.
@@ -241,8 +250,8 @@ export default function TunnidPage() {
             </ToggleDiv>
           </div>
       </div>
-      <Footer/>
-    </div>
+        <Footer/>
+      </div>
       </>
   );
 }
