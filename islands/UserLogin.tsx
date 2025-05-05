@@ -36,6 +36,7 @@ export default function UserLogin( props: {
             return;
         } else {
             setMessage("Sisselogimine õnnestus!");
+
             //globalThis.location.href = "/";
         }
     };
