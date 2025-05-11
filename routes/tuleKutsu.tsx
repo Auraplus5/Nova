@@ -22,7 +22,7 @@ export default function TuleKutsu(
         <meta
           name="description"
           content="Korralda meeldejääv sünnipäev või üritus Nova Tervise Stuudios – ainulaadne kogemus Sulle ja Su külalistele inspireerivas keskkonnas."
-        />{" "}
+        />
         <meta
           name="keywords"
           content="joogastuudio, tervise stuudio, Nova Tervise Stuudio, Rakvere"

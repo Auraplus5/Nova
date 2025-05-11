@@ -41,6 +41,7 @@ export default function Home(
           content="Broneeri tund või osale meie üritustel."
         />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="/Nova_Logo.png" />
         <link rel="icon" href="/Nova_Logo.png" />
         <link rel="preload" href="/main_pic_mobile.webp" as="image" />
         <link rel="preload" href="/main_pic.webp" as="image" />
