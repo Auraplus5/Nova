@@ -4,6 +4,7 @@ import Button from "../components/Button.tsx";
 import { Head } from "$fresh/src/runtime/head.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getSessionUser } from "../lib/auth.ts";
+import 'jsr:@std/dotenv/load'
 
 /**
  * This is the main page of the application. It renders the home page with a header, footer, and various sections.
