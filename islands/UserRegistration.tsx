@@ -44,11 +44,11 @@ export default function UserRegistration(props: {
   return (
     <div className="max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-4">Loo uus kasutaja</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg font-medium text-gray-700"
           >
             Nimi
           </label>
@@ -59,11 +59,11 @@ export default function UserRegistration(props: {
             placeholder="Nimi"
             onInput={(e) => setName((e.target as HTMLInputElement).value)}
             required
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className="p-2 border rounded w-full"
           />
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg font-medium text-gray-700"
           >
             E-mail
           </label>
@@ -74,13 +74,11 @@ export default function UserRegistration(props: {
             value={email}
             onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
             required
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className="p-2 border rounded w-full"
           />
-        </div>
-        <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-lg font-medium text-gray-700"
           >
             Parool
           </label>
@@ -91,7 +89,7 @@ export default function UserRegistration(props: {
             value={password}
             onInput={(e) => setPassword((e.target as HTMLInputElement).value)}
             required
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className="p-2 border rounded w-full"
           />
         </div>
 

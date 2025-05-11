@@ -172,7 +172,7 @@ export default function Home(
           </div>
         </div>
         {/*------------------Contact div------------------*/}
-        <div className="bg-gray-200 lg:px-20 px-10">
+        <div className="bg-gray-100 lg:px-20 px-10">
           <h2 className="text-center text-4xl text-bold pt-20 mb-10">
             Võta ühendust
           </h2>
