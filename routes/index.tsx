@@ -34,7 +34,6 @@ export default function Home(
           content="joogastuudio, tervise stuudio, Nova Tervise Stuudio, Rakvere"
         />
         <meta name="author" content="Nova Tervise Stuudio" />
-        <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Nova Tervise Stuudio" />
         <meta
           property="og:description"
