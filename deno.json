@@ -30,7 +30,9 @@
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
-    "$std/": "https://deno.land/std@0.216.0/"
+    "$std/": "https://deno.land/std@0.216.0/",
+    "$fresh-testing-library": "https://deno.land/x/fresh_testing_library@0.13.1/mod.ts",
+    "$fresh-testing-library/": "https://deno.land/x/fresh_testing_library@0.13.1/"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
@@ -40,6 +42,10 @@
   "deploy": {
     "project": "a6eda245-8a35-488d-bafb-a04f974a4dee",
     "exclude": [
+      "**/node_modules",
+      "**/node_modules",
+      "**/node_modules",
+      "**/node_modules",
       "**/node_modules",
       "**/node_modules"
     ],

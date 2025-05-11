@@ -26,6 +26,7 @@ export default function BookingCalendar() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // State to hold error messages
   const [bookings, setBookings] = useState<Booking[]>([]); // State to hold booking data
   const [typeFilter, setTypeFilter] = useState<string>("Kõik"); // State to hold the selected class type filter
+  const [classFilter, setClassFilter] = useState<string>("Kõik"); // State to hold the selected class filter
 
   const today = new Date();
 
@@ -43,8 +44,9 @@ export default function BookingCalendar() {
   );
 
   const filteredClasses = classes.filter((c) => {
-    if (typeFilter === "Kõik") return true;
-    return c.type === typeFilter;
+    const matchedType = typeFilter === "Kõik" || c.type === typeFilter;
+    const matchedClass = classFilter === "Kõik" || c.classname === classFilter;
+    return matchedType && matchedClass;
   });
 
   // Get the dates for the week starting from the reference Monday
@@ -116,20 +118,26 @@ export default function BookingCalendar() {
   function isClassDisabled(classItem: ClassDay, isFull: boolean) {
     if (isFull) return true;
     const classDate = new Date(classItem.date);
-    const todayNormalized = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const classDateNormalized = new Date(classDate.getFullYear(), classDate.getMonth(), classDate.getDate());
+    const todayNormalized = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+    );
+    const classDateNormalized = new Date(
+      classDate.getFullYear(),
+      classDate.getMonth(),
+      classDate.getDate(),
+    );
 
     if (classDateNormalized.getTime() < todayNormalized.getTime()) return true;
 
     if (
-        classDateNormalized.getTime() === todayNormalized.getTime() &&
-        today.getHours() >= parseInt(classItem.start_time.slice(0, 2))
+      classDateNormalized.getTime() === todayNormalized.getTime() &&
+      today.getHours() >= parseInt(classItem.start_time.slice(0, 2))
     ) {
       return true;
     }
     return false;
-
-
   }
 
   // Get unique time slots from the classes data based on the visible dates
@@ -145,14 +153,13 @@ export default function BookingCalendar() {
 
   return (
     <div class="max-w-6xl mx-auto mb-20">
-
-
       {/* ----------------Header for timetable---------------- */}
-      <div className="flex flex-col lg:flex-row justify-between items-center mb-4">
+      <div className="flex flex-col justify-between items-center mb-4">
         <div className="flex items-center py-4 justify-center flex-1">
           <button
             type="button"
             class="px-2 py-1 "
+            aria-label="Eelmine nädal"
             onClick={() => {
               const prev = new Date(referenceMonday);
               prev.setDate(prev.getDate() - daysToShow);
@@ -183,6 +190,7 @@ export default function BookingCalendar() {
           <button
             type="button"
             class="px-2 py-1"
+            aria-label="Järgmine nädal"
             onClick={() => {
               const next = new Date(referenceMonday);
               next.setDate(next.getDate() + daysToShow);
@@ -210,21 +218,45 @@ export default function BookingCalendar() {
         </div>
 
         {/* ----------------Timetable filter---------------- */}
-        <form method="GET" className="">
-          <select
-            name="type"
-            value={typeFilter}
-            onChange={(e) => {
-              setTypeFilter(e.currentTarget.value);
-            }}
-          >
-            <option value="Kõik">Kõik</option>
-            <option value="Tund">Tunnid</option>
-            <option value="Üritus">Üritused</option>
-          </select>
-        </form>
+        <div className="flex flex-col items-center">
+          <p>Filtreeri tüübi järgi</p>
+          <form method="GET">
+            <select
+              name="type"
+              value={typeFilter}
+              aria-label="Filtreeri tüübi järgi"
+              onChange={(e) => {
+                setTypeFilter(e.currentTarget.value);
+              }}
+            >
+              <option value="Kõik">Kõik</option>
+              <option value="Tund">Tunnid</option>
+              <option value="Üritus">Üritused</option>
+            </select>
+          </form>
+        </div>
+        <div className="flex flex-col items-center mt-4">
+          <p>Otsi tunni järgi</p>
+          <form method="GET">
+            <select
+              name="class"
+              value={classFilter}
+              aria-label="Filtreeri klassi järgi"
+              className="w-32"
+              onChange={(e) => {
+                setClassFilter(e.currentTarget.value);
+              }}
+            >
+              <option value="Kõik">Kõik</option>
+              {classes.map((c) => (
+                <option key={c.id} value={c.classname}>
+                  {c.classname}
+                </option>
+              ))}
+            </select>
+          </form>
+        </div>
       </div>
-
 
       {/* ----------------Header for timetable to show the current timespan---------------- */}
       <div class="w-full bg-white rounded-2xl">
@@ -255,7 +287,7 @@ export default function BookingCalendar() {
             </tr>
           </thead>
 
-            {/* ----------------Populate the timetable---------------- */}
+          {/* ----------------Populate the timetable---------------- */}
           <tbody>
             {timeSlots.map((slot, i) => (
               <tr key={i}>
@@ -268,7 +300,8 @@ export default function BookingCalendar() {
                   return (
                     <td
                       key={j}
-                      className="border border-gray-300 p-2 text-center align-top bg-[#FFFFF0]">
+                      className="border border-gray-300 p-2 text-center align-top bg-[#FFFFF0]"
+                    >
                       {matchedClass && (
                         <>
                           <div>
@@ -282,26 +315,34 @@ export default function BookingCalendar() {
 
                           {/* ----------------Logic for button to disable if fully booked or past date---------------- */}
                           {(() => {
-                            const currentBookings = bookings.filter((b) => b.timetable_id === matchedClass.id).length;
-                            const isFull = currentBookings >= matchedClass.max_bookings;
-                            const disabled = isClassDisabled(matchedClass, isFull);
+                            const currentBookings = bookings.filter((b) =>
+                              b.timetable_id === matchedClass.id
+                            ).length;
+                            const isFull =
+                              currentBookings >= matchedClass.max_bookings;
+                            const disabled = isClassDisabled(
+                              matchedClass,
+                              isFull,
+                            );
 
                             return (
                               <div class="text-xs mt-1">
                                 {currentBookings}/{matchedClass.max_bookings}
                                 {" "}
                                 broneeringut
-                                {isFull && (<span class="text-red-600 ml-1">(Täis)</span>)}
+                                {isFull && (
+                                  <span class="text-red-600 ml-1">(Täis)</span>
+                                )}
                                 <br />
                                 {!disabled && (
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    setSelectedClass(matchedClass)}
-                                  className="mt-1 text-xs text-gray-900 px-5 py-2 rounded-3xl border border-gray-900 delay-50 duration-300 ease-in hover:scale-105"
-                                >
-                                  Registreeri
-                                </button>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setSelectedClass(matchedClass)}
+                                    className="mt-1 text-xs text-gray-900 px-5 py-2 rounded-3xl border border-gray-900 delay-50 duration-300 ease-in hover:scale-105"
+                                  >
+                                    Registreeri
+                                  </button>
                                 )}
                               </div>
                             );
@@ -317,7 +358,7 @@ export default function BookingCalendar() {
         </table>
       </div>
 
-        {/* ----------------Modal for booking form---------------- */}
+      {/* ----------------Modal for booking form---------------- */}
       {selectedClass && (
         <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div class="bg-[#FFFFF0] p-6 rounded shadow-md max-w-md w-full relative">
