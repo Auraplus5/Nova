@@ -24,6 +24,7 @@ export default function Footer() {
               href="https://www.facebook.com/novastuudio"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Nova Tervise Stuudio Facebook"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"
@@ -46,6 +47,7 @@ export default function Footer() {
               href="https://www.instagram.com/novatervisestuudio/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Nova Tervise Stuudio Instagram"
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white"

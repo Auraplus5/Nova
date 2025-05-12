@@ -4,7 +4,7 @@ import Button from "../components/Button.tsx";
 import { Head } from "$fresh/src/runtime/head.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getSessionUser } from "../lib/auth.ts";
-import 'jsr:@std/dotenv/load'
+import "jsr:@std/dotenv/load";
 
 /**
  * This is the main page of the application. It renders the home page with a header, footer, and various sections.
@@ -42,12 +42,14 @@ export default function Home(
           content="Broneeri tund või osale meie üritustel."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://novastuudio.deno.dev/Nova_Logo.png" />
+        <meta
+          property="og:image"
+          content="https://novastuudio.deno.dev/Nova_Logo.png"
+        />
         <link rel="icon" href="/Nova_Logo.png" />
-        <link rel="preload" href="/main_pic_mobile.webp" as="image"/>
+        <link rel="preload" href="/main_pic_mobile.webp" as="image" />
         <link rel="preload" href="/main_pic.webp" as="image" />
-        <link rel="canonical" href="https://novastuudio.deno.dev/"/>
-
+        <link rel="canonical" href="https://novastuudio.deno.dev/" />
       </Head>
       <div className="bg-[#f7f6ed] min-h-screen">
         <Header
@@ -185,7 +187,7 @@ export default function Home(
               action="/api/contact"
               className="space-y-4 max-w-lg mx-auto"
             >
-              <label htmlFor="name" className="text-lg font-bold">Nimi</label>
+              <label className="text-lg font-bold">Nimi</label>
               <input
                 name="name"
                 type="text"
@@ -207,6 +209,7 @@ export default function Home(
                 Sõnum
               </label>
               <textarea
+                aria-label="Sõnum"
                 id="message"
                 name="message"
                 required
