@@ -42,10 +42,12 @@ export default function Home(
           content="Broneeri tund või osale meie üritustel."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/Nova_Logo.png" />
+        <meta property="og:image" content="https://novastuudio.deno.dev/Nova_Logo.png" />
         <link rel="icon" href="/Nova_Logo.png" />
-        <link rel="preload" href="/main_pic_mobile.webp" as="image" />
+        <link rel="preload" href="/main_pic_mobile.webp" as="image"/>
         <link rel="preload" href="/main_pic.webp" as="image" />
+        <link rel="canonical" href="https://novastuudio.deno.dev/"/>
+
       </Head>
       <div className="bg-[#f7f6ed] min-h-screen">
         <Header
@@ -191,7 +193,7 @@ export default function Home(
                 placeholder="Sinu nimi"
                 className="border p-2 w-full"
               />
-              <label htmlFor="email" className="text-lg font-bold">
+              <label className="text-lg font-bold">
                 E-post
               </label>
               <input
@@ -201,7 +203,7 @@ export default function Home(
                 placeholder="Sinu e-post"
                 className="border p-2 w-full"
               />
-              <label htmlFor="message" className="text-lg font-bold">
+              <label className="text-lg font-bold">
                 Sõnum
               </label>
               <textarea

@@ -93,6 +93,7 @@ export default function Header({ user, role, first_name }: HeaderProps) {
               href="https://www.facebook.com/novastuudio"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Nova Tervise Stuudio Facebooki leht"
             >
               <img
                 src="/icons8-facebook.svg"
@@ -105,6 +106,7 @@ export default function Header({ user, role, first_name }: HeaderProps) {
               href="https://www.instagram.com/novatervisestuudio/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Nova Tervise Stuudio Facebooki leht"
             >
               <img
                 src="/icons8-instagram.svg"
