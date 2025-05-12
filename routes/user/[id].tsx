@@ -67,7 +67,8 @@ export default function UserPage(
 ) {
   const today = new Date();
   const upcomingBookings = data.bookings.filter((booking) => {
-    const bookingDate = new Date(booking.timetable.date);
+    const combinedDateTime = `${booking.timetable.date}T${booking.timetable.end_time}`;
+    const bookingDate = new Date(combinedDateTime);
     return bookingDate >= today;
   });
   return (

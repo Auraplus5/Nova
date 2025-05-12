@@ -14,6 +14,7 @@ import * as $index from "./routes/index.tsx";
 import * as $login from "./routes/login.tsx";
 import * as $meist from "./routes/meist.tsx";
 import * as $registreeri from "./routes/registreeri.tsx";
+import * as $sitemap from "./routes/sitemap.ts";
 import * as $tuleKutsu from "./routes/tuleKutsu.tsx";
 import * as $tunnid from "./routes/tunnid.tsx";
 import * as $tunniplaan from "./routes/tunniplaan.tsx";
@@ -43,6 +44,7 @@ const manifest = {
     "./routes/login.tsx": $login,
     "./routes/meist.tsx": $meist,
     "./routes/registreeri.tsx": $registreeri,
+    "./routes/sitemap.ts": $sitemap,
     "./routes/tuleKutsu.tsx": $tuleKutsu,
     "./routes/tunnid.tsx": $tunnid,
     "./routes/tunniplaan.tsx": $tunniplaan,
