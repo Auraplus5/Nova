@@ -8,7 +8,7 @@ export default {
         theme: {
             extend: {
                 fontFamily: {
-                    sans: ["Onest", "sans-serif"],
+                    sans: ["NotoSans", "sans-serif"],
                 }
             }
         }
